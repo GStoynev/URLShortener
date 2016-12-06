@@ -1,0 +1,76 @@
+﻿@model URLShortener.UI.Models.UrlShortenerViewModel
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <p>
+        @if (Model == null)
+        {
+            using (Html.BeginForm("Index", "Home", FormMethod.Post))
+            {
+                @Html.TextBoxFor(m => m.OriginalURL, new { placeholder = "Your original URL here" })
+                <input type="submit" value="Shorten URL" class="btn btn-default" />
+                @Html.TextBoxFor(m => m.CustomURL, new { placeholder = "(optional) Use this short URL" })
+            }
+        }
+        else if (Model.Id > 0)
+        {
+            <text>
+                Here's your short URL 
+                <span id="copySource">
+                    @string.Format(@"{0}{1}{2}{3}/{4}",
+                        Request.Url.Scheme,
+                        System.Uri.SchemeDelimiter,
+                        Request.Url.Host,
+                        (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port),
+                        Model.ShortURL)
+                </span>
+                <button class="btn" data-clipboard-target="#copySource">
+                    <img src="~/Content/copy.svg.png" alt="Copy to clipboard" style="width: 20px; height: 20px">
+                </button>
+                <div>
+                    <i>(for @Model.OriginalURL)</i>
+                </div>
+            </text>
+            @Html.RouteLink("Thanks. Let's do another one", new { slugOrId = (string)null });
+        }
+        else
+        {
+            <text>
+            <ul>
+                You have encountered a condition, where generated (or requested) Short URL already exists in the database. 
+                <br />
+                Current implementation has no requirement/implementation in such cases.
+                <br />
+                To make this solution more robust, following handling may be added:
+                <li>If requested Short URL pre-exists in the DB for the same "long" URL, do not display as error; just reuse mapping and display normal success flow</li>
+                <li>Otherwise, if Short URL was requested by User, this message is enough - it shows that desired short URL is taken by another mapping</li>
+                <li>Lastly, if somehow calculated short URL already exists in the database (not likely), perhaps logic to retry a few times is appropriate before alerting user of internal application error</li>
+            </ul>
+            </text>
+            @Html.RouteLink("Home", new { slugOrId = (string)null });
+        }
+</p>
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var clipboard = new Clipboard('.btn');
+            clipboard.on('success', function (e) {
+                console.info('Action:', e.action);
+                console.info('Text:', e.text);
+                console.info('Trigger:', e.trigger);
+                alert('dislay a nice grawl that Copy worked')
+                e.clearSelection();
+            });
+
+            clipboard.on('error', function (e) {
+                console.error('Action:', e.action);
+                console.error('Trigger:', e.trigger);
+                alert("dislay Error: copy didn't work for some reaosn");
+            });
+        });
+    </script>
+}

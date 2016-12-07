@@ -10,15 +10,15 @@
         {
             using (Html.BeginForm("Index", "Home", FormMethod.Post))
             {
-                <div class="table">
-                    <div class="col-lg-3">
-                        @Html.EditorFor(m => m.OriginalURL, new { placeholder = "Your original URL here" })
+                <div class="row">
+                    <div class="col-sm-6 col-lg-4">
+                        @Html.TextBoxFor(m => m.OriginalURL, new { placeholder = "Your original URL here" })
                         @Html.ValidationMessageFor(model => model.OriginalURL, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-sm-4 col-lg-2">
                         <input type="submit" value="Shorten URL" class="btn btn-default" />
                     </div>
-                    <div class="col-lg-3">
+                    <div class="col-sm-6 col-lg-4">
                         @Html.TextBoxFor(m => m.CustomURL, new { placeholder = "(optional) Use this short URL" })
                     </div>
                 </div>

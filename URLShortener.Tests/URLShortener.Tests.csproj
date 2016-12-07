@@ -94,6 +94,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\URLShortener.Core\URLShortener.Core.csproj">
+      <Project>{89b5f2c3-cecd-4287-b118-d058d6bf32ea}</Project>
+      <Name>URLShortener.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\URLShortener\URLShortener.UI.csproj">
       <Project>{7A05E1BE-A8E0-4C66-BB50-03B4A4D2E6EE}</Project>
       <Name>URLShortener.UI</Name>

@@ -10,9 +10,18 @@
         {
             using (Html.BeginForm("Index", "Home", FormMethod.Post))
             {
-                @Html.TextBoxFor(m => m.OriginalURL, new { placeholder = "Your original URL here" })
-                <input type="submit" value="Shorten URL" class="btn btn-default" />
-                @Html.TextBoxFor(m => m.CustomURL, new { placeholder = "(optional) Use this short URL" })
+                <div class="table">
+                    <div class="col-lg-3">
+                        @Html.EditorFor(m => m.OriginalURL, new { placeholder = "Your original URL here" })
+                        @Html.ValidationMessageFor(model => model.OriginalURL, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-lg-3">
+                        <input type="submit" value="Shorten URL" class="btn btn-default" />
+                    </div>
+                    <div class="col-lg-3">
+                        @Html.TextBoxFor(m => m.CustomURL, new { placeholder = "(optional) Use this short URL" })
+                    </div>
+                </div>
             }
         }
         else if (Model.Id > 0)

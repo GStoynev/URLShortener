@@ -10,8 +10,9 @@ namespace URLShortener.UI.Tests.Controllers
         [TestMethod]
         public void Index()
         {
+            var settingProvider = new URLShortener.Services.SettingsProvider(false);
             // Arrange
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(settingProvider, null);
 
             // Act
             ViewResult result = controller.Index((string)null) as ViewResult;
@@ -23,8 +24,9 @@ namespace URLShortener.UI.Tests.Controllers
         [TestMethod]
         public void About()
         {
+            var settingProvider = new URLShortener.Services.SettingsProvider(false);
             // Arrange
-            HomeController controller = new HomeController();
+            HomeController controller = new HomeController(settingProvider, null);
 
             // Act
             ViewResult result = controller.About() as ViewResult;

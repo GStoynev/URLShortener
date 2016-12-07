@@ -9,7 +9,7 @@ using System.Web.Routing;
 
 namespace URLShortener.UI
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class URLShortenerUI : System.Web.HttpApplication
     {
         protected void Application_Start()
         {

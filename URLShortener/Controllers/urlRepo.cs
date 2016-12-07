@@ -7,7 +7,10 @@ namespace URLShortener.UI.Controllers
 {
     internal class UrlMapContext : DbContext
     {
-        public UrlMapContext() : base("DefaultConnection") { }
+        public UrlMapContext() : base("DefaultConnection") 
+        {
+            //Database.SetInitializer<UrlMapContext>(null);
+        }
 
         public DbSet<UrlShortenerViewModel> UrlMappings { get; set; }
 
